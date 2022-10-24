@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="controller.LibraryTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2022-10-24T19:54:31" hostname="DESKTOP-OQ9HF9O" time="0.723">
+  <properties/>
+  <testcase name="libraryThrowsExceptionDuringCreationTest()" classname="controller.LibraryTest" time="0.605"/>
+  <testcase name="printBookInfoAfterTakingBookTest()" classname="controller.LibraryTest" time="0.095"/>
+  <testcase name="booksOrderSameWithBooksFromBookFactoryTest()" classname="controller.LibraryTest" time="0.004"/>
+  <testcase name="addBookAddsBookToEmptyCell()" classname="controller.LibraryTest" time="0.002"/>
+  <testcase name="addBookThrowsExceptionIfAllCellAreBusyTest()" classname="controller.LibraryTest" time="0.002"/>
+  <testcase name="printBooksPrintsInfoAboutCellsInLibraryTest()" classname="controller.LibraryTest" time="0.004"/>
+  <testcase name="getBookFromCellReturnBookFromCellTest()" classname="controller.LibraryTest" time="0.001"/>
+  <testcase name="getBookFromEmptyCellThrowsExceptionTest()" classname="controller.LibraryTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

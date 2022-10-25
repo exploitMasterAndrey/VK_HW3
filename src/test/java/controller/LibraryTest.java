@@ -1,29 +1,23 @@
 package controller;
 
 import com.google.gson.Gson;
-import lombok.SneakyThrows;
 import model.Author;
 import model.Book;
-import org.jetbrains.annotations.NotNull;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.jupiter.api.io.CleanupMode;
-import org.junit.jupiter.api.io.TempDir;
-import org.mockito.*;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import util.FileBookFactory;
-import util.LibraryFactory;
 
-import java.io.*;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.ArrayList;
+import java.io.PrintStream;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @ExtendWith(MockitoExtension.class)
 class LibraryTest {
@@ -41,20 +35,17 @@ class LibraryTest {
                 Book.builder().name("book2").author(Author.builder().name("author2").build()).build(),
                 Book.builder().name("book3").author(Author.builder().name("author3").build()).build()
         );
+        Mockito.when(fileBookFactory.books()).thenReturn(booksFromLibrary);
     }
 
     @Test
     void libraryThrowsExceptionDuringCreationTest(){
-        Mockito.when(fileBookFactory.books()).thenReturn(booksFromLibrary);
-
         assertThrows(RuntimeException.class, () -> new Library(2, fileBookFactory));
     }
 
 
     @Test
     void booksOrderSameWithBooksFromBookFactoryTest(){
-        Mockito.when(fileBookFactory.books()).thenReturn(booksFromLibrary);
-
         Library library = new Library(5, fileBookFactory);
         List<Book> booksFromBooksFactory = (List<Book>) fileBookFactory.books();
 
@@ -72,8 +63,6 @@ class LibraryTest {
         ArgumentCaptor<String> captor = ArgumentCaptor.forClass(String.class);
         System.setOut(stream);
 
-        Mockito.when(fileBookFactory.books()).thenReturn(booksFromLibrary);
-
         Library library = new Library(3, fileBookFactory);
 
         library.getBook(2);
@@ -84,8 +73,6 @@ class LibraryTest {
 
     @Test
     void getBookFromEmptyCellThrowsExceptionTest(){
-        Mockito.when(fileBookFactory.books()).thenReturn(booksFromLibrary);
-
         Library library = new Library(4, fileBookFactory);
 
         assertThrows(RuntimeException.class, () -> library.getBook(3));
@@ -93,8 +80,6 @@ class LibraryTest {
 
     @Test
     void getBookFromCellReturnBookFromCellTest(){
-        Mockito.when(fileBookFactory.books()).thenReturn(booksFromLibrary);
-
         Library library = new Library(3, fileBookFactory);
 
         assertEquals(library.getBook(2), booksFromLibrary.get(2));
@@ -102,8 +87,6 @@ class LibraryTest {
 
     @Test
     void addBookAddsBookToEmptyCell(){
-        Mockito.when(fileBookFactory.books()).thenReturn(booksFromLibrary);
-
         Library library = new Library(5, fileBookFactory);
 
         Book bookToAdd = Book.builder().author(Author.builder().name("newAuthor").build()).name("newBook").build();
@@ -114,8 +97,6 @@ class LibraryTest {
 
     @Test
     void addBookThrowsExceptionIfAllCellAreBusyTest(){
-        Mockito.when(fileBookFactory.books()).thenReturn(booksFromLibrary);
-
         Library library = new Library(3, fileBookFactory);
 
         assertThrows(RuntimeException.class, () -> library.addBook(Book.builder().author(Author.builder().name("newAuthor").build()).name("newBook").build()));
@@ -126,8 +107,6 @@ class LibraryTest {
         PrintStream stream = Mockito.mock(PrintStream.class);
         ArgumentCaptor<String> captor = ArgumentCaptor.forClass(String.class);
         System.setOut(stream);
-
-        Mockito.when(fileBookFactory.books()).thenReturn(booksFromLibrary);
 
         Library library = new Library(4, fileBookFactory);
 

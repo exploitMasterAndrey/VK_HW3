@@ -15,12 +15,6 @@ public class TestWithInjection {
     @Inject
     FileBookFactory injectedFileBookFactory;
 
-    @BeforeEach
-    void init() {
-        Module module = new Module("books.txt");
-        Injector injector = Guice.createInjector(module);
-    }
-
     @Test
     void libraryThrowsExceptionDuringCreationTest() {
         assertThrows(RuntimeException.class, () -> new Library(2, injectedFileBookFactory));

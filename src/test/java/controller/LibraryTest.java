@@ -1,8 +1,13 @@
 package controller;
 
 import com.google.gson.Gson;
+import com.google.inject.Guice;
+import com.google.inject.Inject;
+import com.google.inject.Injector;
+import factoryInterfaces.LibraryFactoryInterface;
 import model.Author;
 import model.Book;
+import module.Module;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
